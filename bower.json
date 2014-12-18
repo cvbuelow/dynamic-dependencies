@@ -1,0 +1,12 @@
+{
+  "name": "require",
+  "version": "0.0.1",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "components"
+  ],
+  "dependencies": {
+    "requirejs": "~2.1.15"
+  }
+}
