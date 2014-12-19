@@ -1,11 +1,4 @@
 var requirejs = require('requirejs');
-/*requirejs.config({
-  baseUrl: __dirname + '../js/',
-  nodeRequire: require,
-  paths: {
-    requireLib: '../../node_modules/requirejs/require'
-  }
-});*/
 var express = require('express'),
   router = express.Router();
 
@@ -26,7 +19,7 @@ router.get('/package/:include/:exclude?', function(req, res) {
   var include;
 
   if (req.params.include === 'main') {
-    include = ['requirejs', 'main'];
+    include = ['requirejs', 'main'];    // core dependencies, get these from somewhere
   } else {
     include = unhash(req.params.include);
   }
@@ -50,14 +43,8 @@ router.get('/package/:include/:exclude?', function(req, res) {
       }
   };
 
-  requirejs.optimize(config, function (buildResponse) {
-      //buildResponse is just a text output of the modules
-      //included. Load the built file for the contents.
-      //Use config.out to get the optimized file contents.
-      // var contents = fs.readFileSync(config.out, 'utf8');
-  }, function(err) {
-      //optimization err callback
-      console.log(err);
+  requirejs.optimize(config, null, function(err) {
+    console.log(err);
   });
 
 });
