@@ -1,3 +1,6 @@
-require(['one', 'two'], function(one, two) {
-  two.hey(one);
+require(['js/load', 'js/deps', 'js/one'], function(load, deps, one) {
+  load(deps, function() {
+    two.hey(one);
+  });
+
 });
