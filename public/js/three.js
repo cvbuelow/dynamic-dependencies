@@ -1,4 +1,4 @@
-define(['jquery'], function() {
+define(function() {
   return {
     yo: function(yo) {
       alert(yo);

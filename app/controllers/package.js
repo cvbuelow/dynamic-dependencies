@@ -23,15 +23,24 @@ router.get('/package/:include/:exclude?', function(req, res) {
     return JSON.parse(atob(hash));
   }
 
-  var include = unhash(req.params.include);
-  var exclude = unhash(req.params.exclude);
+  var include;
+
+  if (req.params.include === 'main') {
+    include = ['requirejs', 'main'];
+  } else {
+    include = unhash(req.params.include);
+  }
+
+  var exclude = req.params.exclude && unhash(req.params.exclude) || [];
   
   var config = {
       baseUrl: 'public/js',
       paths: {
-        jquery: '../components/jquery/dist/jquery'
+        requirejs: '../components/requirejs/require',
+        jquery: '../components/jquery/dist/jquery',
+        pubsub: '../components/jquery-tiny-pubsub/dist/ba-tiny-pubsub'
       },
-      optimize: 'none', // Files should be pre-minified to improve performance
+      optimize: 'none', // Files should be pre-minified to improve performance so not doing it here
       include: include,
       exclude: exclude,
       out: function(text) {
