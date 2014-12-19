@@ -19,16 +19,21 @@ router.get('/package/:include/:exclude?', function(req, res) {
     return new Buffer(str, 'base64').toString('binary');
   }
 
-  var modules = JSON.parse(atob(req.params.include));
+  function unhash(hash) {
+    return JSON.parse(atob(hash));
+  }
+
+  var include = unhash(req.params.include);
+  var exclude = unhash(req.params.exclude);
+  
   var config = {
       baseUrl: 'public/js',
       paths: {
-        requirejs: '../../node_modules/requirejs/require'
+        jquery: '../components/jquery/dist/jquery'
       },
-      optimize: 'none',
-      // name: 'requirejs',
-      include: modules,
-      // exclude: ['three'],
+      optimize: 'none', // Files should be pre-minified to improve performance
+      include: include,
+      exclude: exclude,
       out: function(text) {
         res.setHeader('content-type', 'text/javascript');
         res.write(text);

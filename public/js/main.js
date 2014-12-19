@@ -1,6 +1,11 @@
-require(['js/load', 'js/deps', 'js/one'], function(load, deps, one) {
-  load(deps, function() {
-    two.hey(one);
-  });
+requirejs.config({
+  baseUrl: 'js',
+  paths: {
+    jquery: '../components/jquery/dist/jquery'
+  }
+});
+require(['load', 'deps', 'one', 'jquery'], function(load, deps, one) {
+  load(deps);
 
+  // two.hey(one);
 });
